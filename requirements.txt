@@ -1,0 +1,8 @@
+langchain-groq
+fastapi
+uvicorn
+pydantic
+pymupdf
+python-dotenv
+apify-client
+mcp[cli]

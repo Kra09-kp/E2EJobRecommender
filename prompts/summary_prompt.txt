@@ -1,0 +1,3 @@
+Summarize the following resume highlighting Skills, Education, Experience. Here is the resume:
+
+{resume_text}

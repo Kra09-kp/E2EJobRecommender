@@ -1,0 +1,58 @@
+[2025-08-02 19:54:06,295] (INFO): 📋 Logger initialized for project: job-recommender
+[2025-08-02 19:54:06,296] (INFO): Creating virtual environment...
+[2025-08-02 19:54:13,063] (INFO): 🎉 UV initialized successfully.
+[2025-08-02 19:54:13,338] (INFO): ✅ Virtual environment created.
+[2025-08-02 19:54:13,340] (INFO): 🔗 Virtual environment activated.
+[2025-08-02 19:54:13,340] (INFO): 🚧 Creating deep learning project structure...
+[2025-08-02 19:54:13,341] (INFO): 📁 Created directory: .github/workflows
+[2025-08-02 19:54:13,341] (INFO): 📄 Created file: .github/workflows/main.yaml
+[2025-08-02 19:54:13,342] (INFO): 📁 Created directory: src/job-recommender
+[2025-08-02 19:54:13,342] (INFO): 📄 Created file: src/job-recommender/__init__.py
+[2025-08-02 19:54:13,342] (INFO): 📁 Created directory: src/job-recommender/models
+[2025-08-02 19:54:13,343] (INFO): 📄 Created file: src/job-recommender/models/__init__.py
+[2025-08-02 19:54:13,343] (INFO): 📁 Created directory: src/job-recommender/models
+[2025-08-02 19:54:13,343] (INFO): 📄 Created file: src/job-recommender/models/load_model.py
+[2025-08-02 19:54:13,344] (INFO): 📁 Created directory: src/job-recommender/prompts
+[2025-08-02 19:54:13,344] (INFO): 📄 Created file: src/job-recommender/prompts/base_prompt.txt
+[2025-08-02 19:54:13,344] (INFO): 📁 Created directory: src/job-recommender/chains
+[2025-08-02 19:54:13,345] (INFO): 📄 Created file: src/job-recommender/chains/__init__.py
+[2025-08-02 19:54:13,345] (INFO): 📁 Created directory: src/job-recommender/config
+[2025-08-02 19:54:13,345] (INFO): 📄 Created file: src/job-recommender/config/__init__.py
+[2025-08-02 19:54:13,346] (INFO): 📁 Created directory: src/job-recommender/config
+[2025-08-02 19:54:13,346] (INFO): 📄 Created file: src/job-recommender/config/configuration.py
+[2025-08-02 19:54:13,346] (INFO): 📁 Created directory: src/job-recommender/utils
+[2025-08-02 19:54:13,347] (INFO): 📄 Created file: src/job-recommender/utils/__init__.py
+[2025-08-02 19:54:13,347] (INFO): 📁 Created directory: src/job-recommender/utils
+[2025-08-02 19:54:13,347] (INFO): 📄 Created file: src/job-recommender/utils/helper.py
+[2025-08-02 19:54:13,347] (INFO): 📁 Created directory: config
+[2025-08-02 19:54:13,348] (INFO): 📄 Created file: config/config.yaml
+[2025-08-02 19:54:13,348] (INFO): 📄 Created file: dvc.yaml
+[2025-08-02 19:54:13,348] (INFO): 📄 Created file: params.yaml
+[2025-08-02 19:54:13,349] (INFO): 📄 Created file: requirements.txt
+[2025-08-02 19:54:13,349] (INFO): 📄 Created file: setup.py
+[2025-08-02 19:54:13,350] (INFO): 📄 Created file: README.md
+[2025-08-02 19:54:13,350] (INFO): 📄 Created file: Dockerfile
+[2025-08-02 19:54:13,350] (INFO): 📄 Created file: .env
+[2025-08-02 19:54:13,351] (INFO): 📁 Created directory: notebooks
+[2025-08-02 19:54:13,351] (INFO): 📄 Created file: notebooks/trial.ipynb
+[2025-08-02 19:54:13,351] (INFO): 📄 Created file: app.py
+[2025-08-02 19:54:13,351] (INFO): 🌐 Web framework selection started.
+[2025-08-02 19:54:17,608] (INFO): 🚀 Creating FastAPI project structure...
+[2025-08-02 19:54:17,658] (INFO): 📁 Created directory: app
+[2025-08-02 19:54:17,659] (INFO): 📄 Created file: app/main.py
+[2025-08-02 19:54:17,660] (INFO): 📁 Created directory: app
+[2025-08-02 19:54:17,661] (INFO): 📄 Created file: app/__init__.py
+[2025-08-02 19:54:17,662] (INFO): 📁 Created directory: app
+[2025-08-02 19:54:17,663] (INFO): 📄 Created file: app/__main__.py
+[2025-08-02 19:54:17,664] (INFO): 📁 Created directory: app/static/css
+[2025-08-02 19:54:17,665] (INFO): 📄 Created file: app/static/css/style.css
+[2025-08-02 19:54:17,665] (INFO): 📁 Created directory: app/static/js
+[2025-08-02 19:54:17,667] (INFO): 📄 Created file: app/static/js/script.js
+[2025-08-02 19:54:17,668] (INFO): 📁 Created directory: app/static/image
+[2025-08-02 19:54:17,668] (INFO): 📄 Created file: app/static/image/.gitkeep
+[2025-08-02 19:54:17,669] (INFO): 📁 Created directory: app/routers
+[2025-08-02 19:54:17,670] (INFO): 📄 Created file: app/routers/__init__.py
+[2025-08-02 19:54:17,671] (INFO): 📁 Created directory: app/templates
+[2025-08-02 19:54:17,671] (INFO): 📄 Created file: app/templates/index.html
+[2025-08-02 19:54:17,672] (INFO): ✅ Web framework setup complete.
+[2025-08-02 19:54:17,672] (INFO): 📂 Project structure created successfully.

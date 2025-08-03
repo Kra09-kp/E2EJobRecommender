@@ -1,0 +1,49 @@
+Kirti Pogra
+Email: kirti.pogra@email.com | Phone: +1-234-567-8901 | LinkedIn: linkedin.com/in/kirtipogra
+
+Objective
+----------
+Passionate and results-driven Machine Learning Engineer with 3+ years of experience designing, developing, and deploying scalable ML solutions. Seeking to leverage expertise in deep learning, data analysis, and model optimization to contribute to innovative projects.
+
+Education
+----------
+M.S. in Computer Science
+XYZ University, 2021
+
+B.Tech in Information Technology
+ABC Institute of Technology, 2019
+
+Skills
+----------
+- Programming: Python, TensorFlow, PyTorch, Scikit-learn, SQL
+- Machine Learning: Supervised & Unsupervised Learning, Deep Learning, NLP, Computer Vision
+- Data Engineering: Pandas, NumPy, Data Preprocessing, Feature Engineering
+- Tools: Docker, Git, MLflow, AWS, Azure
+- Communication & Collaboration
+
+Experience
+----------
+Machine Learning Engineer | Tech Innovators Inc. | June 2021 – Present
+- Developed and deployed NLP models for automated resume screening, improving accuracy by 30%.
+- Built deep learning models for image classification, reducing error rate by 15%.
+- Collaborated with data scientists and software engineers to integrate ML solutions into production systems.
+- Optimized model performance and scalability using distributed training on cloud platforms.
+
+Data Science Intern | Smart Analytics Ltd. | Jan 2020 – May 2021
+- Assisted in building regression models for sales forecasting.
+- Performed data cleaning, feature selection, and exploratory data analysis.
+- Presented findings to stakeholders and contributed to project documentation.
+
+Projects
+----------
+- Sentiment Analysis Platform: Designed and deployed a sentiment analysis tool using BERT for real-time social media monitoring.
+- Fraud Detection System: Implemented an ensemble model to detect fraudulent transactions with 95% accuracy.
+
+Certifications
+----------
+- TensorFlow Developer Certificate
+- AWS Certified Machine Learning – Specialty
+
+References
+----------
+Available upon request.

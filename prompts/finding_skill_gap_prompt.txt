@@ -1,0 +1,3 @@
+Analyze this resume and highlight missing skills , project needed for better job opportunity.
+Here is the resume:
+{resume_text}

@@ -1,0 +1,16 @@
+[project]
+name = "e2e-job-recommender"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "apify-client>=1.12.1",
+    "fastapi>=0.116.1",
+    "langchain-groq>=0.3.6",
+    "mcp[cli]>=1.12.3",
+    "pydantic>=2.11.7",
+    "pymupdf>=1.26.3",
+    "python-dotenv>=1.1.1",
+    "uvicorn>=0.35.0",
+]

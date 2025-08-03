@@ -1,0 +1,4 @@
+Based on the resume summary , give me the best job titles and keyword to search for finding the best suited job.
+Here is the resume's summary:
+{summary}
+"""

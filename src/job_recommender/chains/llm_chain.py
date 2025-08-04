@@ -1,17 +1,28 @@
-from job_recommender.models.llm_model import LLMJobAssistant
+from src.job_recommender.models.llm_model import LLMJobAssistant
 from langchain_core.runnables import RunnableLambda
 
 
 class JobRecommenderChain(LLMJobAssistant):
     """
     A class to handle the job recommendation chain using a language model.
+    This class extends the LLMJobAssistant to create a chain that processes
+    job recommendations based on a given schema and prompt.
     """
 
-    def __init__(self):
-        self.chain = None
-    
-    def invoke(self,schema,prompt):
-        self.chain = self._get_chain(schema)
+    def __init__(self,schema):
+        self.schema = schema
+        super().__init__()
+        self.chain = self._get_chain(self.schema) 
+
+    def invoke(self,prompt):
+        """
+        Invokes the chain with the given schema and prompt.
+        Args:
+            prompt (str): The prompt to be processed by the chain.
+        Returns:
+            The result of the chain invocation.
+        """
+        
         return self.chain.invoke(prompt)
 
     

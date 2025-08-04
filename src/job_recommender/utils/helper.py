@@ -24,17 +24,17 @@ def extract_text_from_pdf(pdf_path):
 
     return text
 
-def load_env_variables():
+def load_env_variables(key_name: str):
     """
     Loads environment variables from a .env file.
 
     This function reads the .env file and sets the environment variables accordingly.
+    Args:
+        key_name (str): The prefix for the environment variable names to be loaded. for eg: GROQ OR APIFY
     """
     from dotenv import load_dotenv
     load_dotenv()  # Load environment variables from .env file
 
     # Extract variables
-    GROQ_MODEL_NAME = os.getenv("GROQ_MODEL_NAME")
-    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-    APIFY_API_KEY = os.getenv("APIFY_API_KEY")
+    API_KEY = os.getenv(f"{key_name}_API_KEY")
     

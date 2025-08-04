@@ -37,4 +37,4 @@ async def get_naukri_job_recommendations(search_query:str,location:str,rows=60):
     
     except Exception as e:
         print(f"🔥 Error fetching Naukri jobs: {e}") 
-        return None
+        return e

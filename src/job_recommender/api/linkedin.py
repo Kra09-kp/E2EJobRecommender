@@ -1,6 +1,5 @@
 from src.job_recommender.api import apify_client
 
-    
 async def get_linkedin_job_recommendations(search_query: str, location: str, rows: int = 100):
     url = f"https://www.linkedin.com/jobs/search?keywords={search_query[:2]}&location={location}"
     
@@ -30,4 +29,4 @@ async def get_linkedin_job_recommendations(search_query: str, location: str, row
 
     except Exception as e:
         print(f"🔥 Error fetching LinkedIn jobs: {e}")
-        return None
+        return e

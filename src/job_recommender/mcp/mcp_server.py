@@ -5,28 +5,25 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("job-recommender")
 
 @mcp.tool()
-async def fetch_linkedin(listofkeywords):
+async def fetch_linkedin(listofkeywords:str):
     """
     Fetch job details from LinkedIn based on the provided keywords.
     """
+    if not isinstance(listofkeywords, str):
+        raise ValueError("listofkeywords must be a string.")
     return await get_linkedin_job_recommendations(search_query=listofkeywords,location="India")
 
  
 
 @mcp.tool()
-async def fetch_naukri(listofkeywords):
+async def fetch_naukri(listofkeywords:str):
     """
     Fetch job details from Naukri based on the provided keywords.
     """
+    if not isinstance(listofkeywords, str):
+        raise ValueError("listofkeywords must be a string.")
     return await get_naukri_job_recommendations(search_query=listofkeywords,location="India")
 
 
-def start():
-    """
-    Starts the MCP server.
-    """
-    mcp.run(transport='stdio')
-
-
 if __name__ == "__main__":
-    start()
+    mcp.run(transport='stdio')

@@ -37,4 +37,4 @@ def load_env_variables(key_name: str):
 
     # Extract variables
     API_KEY = os.getenv(f"{key_name}_API_KEY")
-    
+    return API_KEY

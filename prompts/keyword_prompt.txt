@@ -1,4 +1,4 @@
-Based on the resume summary , give me the best job titles and keyword to search for finding the best suited job.
+Based on the resume summary , give me the best job titles or keyword to search for finding the best suited job. I only want top-5 keywords.
 Here is the resume's summary:
 {summary}
 """

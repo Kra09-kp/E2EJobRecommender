@@ -20,15 +20,14 @@ class FindSkillGap(BaseModel):
     """
     Represents the skill gap analysis.
     """
-    skill_gap: list[str] = Field(..., description="List of skills that are missing or need improvement for the candidate")
-    recommendations: list[str] = Field(..., description="List of recommendations to fill the skill gap")
+    skills: list[str] = Field(..., description="List of skills that are missing or need improvement for the candidate")
+    recommendations: list[str] = Field(..., description="List of recommendations to fill that skill gap")
 
 class ProjectIdeas(BaseModel):
     """
     Represents project ideas based on the candidate's skills.
     """
-    ideas: list[str] = Field(..., 
-                    description="List of project ideas that can be implemented based on the candidate's skills to enhance their portfolio")
+    ideas: list[str] = Field(..., description="List of project ideas that can be implemented based on the candidate's skills to enhance their portfolio")
 
 
 class ImprovementAreas(BaseModel):
@@ -37,3 +36,4 @@ class ImprovementAreas(BaseModel):
     """
     areas: list[str] = Field(..., description="List of areas where the candidate can improve their skills or knowledge")
     suggestions: list[str] = Field(..., description="List of suggestions to improve in the identified areas")
+    message: str = Field(..., description="Appreciation message for the candidate on their current skills and efforts")

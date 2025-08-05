@@ -1,4 +1,5 @@
-Based on the resume, tell what he/she can do to improve the his/her resume to get more job opportunities.
+Based on the resume, tell what he/she can do to improve in resume to get more job opportunities.
+Give top 3,4 suggestions and in last give a appreciation message to the resume holder on what he/she has done so far.
 Here is the resume:
 
 {resume_text}

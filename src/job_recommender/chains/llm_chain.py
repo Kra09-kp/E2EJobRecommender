@@ -40,6 +40,7 @@ class JobRecommenderChain(LLMJobAssistant):
         return self.chain
 
     def _load_prompt(self, inputs):
+        # print(inputs)
         file_path = inputs['file_path']
         kwargs = {k: v for k, v in inputs.items() if k != "file_path"}
 

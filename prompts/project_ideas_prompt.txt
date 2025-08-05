@@ -1,0 +1,4 @@
+Analyze the resume and by looking at the skills, education, and experience, suggest what projects  he/she can do to improve the resume for better job opportunities.
+Suggest top 5 projects which can be added to the resume.
+Here is the resume:
+{resume_text}

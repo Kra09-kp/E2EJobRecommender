@@ -1,4 +1,6 @@
 Analyze the resume and by looking at the skills, education, and experience, suggest what projects  he/she can do to improve the resume for better job opportunities.
-Suggest top 5 projects which can be added to the resume.
+Suggest top 5 projects which can be added to the resume to enhance the candidate's profile.
+Also provide a brief description of each project and how it can be beneficial for the candidate's career.
+
 Here is the resume:
 {resume_text}

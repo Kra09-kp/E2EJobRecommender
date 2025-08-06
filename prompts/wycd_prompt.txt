@@ -1,5 +1,7 @@
-Based on the resume, tell what he/she can do to improve in resume to get more job opportunities.
-Give top 3,4 suggestions and in last give a appreciation message to the resume holder on what he/she has done so far.
-Here is the resume:
+Analyze the provided resume and identify actionable recommendations to enhance its effectiveness for securing more job opportunities. 
+Focus on areas such as skills, education and suggest specific improvements or additions that can be made to the resume.
 
-{resume_text}
+Here is the resume:
+{{ resume_text }}
+
+Note: Always Conclude with a positive and encouraging message, acknowledging the strengths and accomplishments demonstrated in the resume.

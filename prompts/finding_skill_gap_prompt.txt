@@ -1,14 +1,10 @@
-Analyze this resume and highlight missing skills which are currently in demand in the job market.
+Analyze following resume and highlight missing skills which are currently in demand in the job market.
+
 - Do not include skills that are already present in the resume.
+
 Note: Skill can be the use of the latest technologies, tools, or methodologies that are relevant to the job market (Mainly if resume is for a tech job).
 
-Just give top 4,5 skills which are missing and give a recommendation on how to acquire those skills.
 
 Here is the resume:
-{resume_text}
 
-Your Respond must be in JSON format like this:
-{{
-  "skills": ["Skill 1", "Skill 2", "Skill 3", "Skill 4", "Skill 5"],
-  "recommendations": ["recommendation for skill_1", "recommendation for skill_2", "recommendation for skill_3", "recommendation for skill_4", "recommendation for skill_5"]
-}}
+{{ resume_text }}

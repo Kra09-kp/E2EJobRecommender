@@ -3,7 +3,7 @@ from langchain_core.prompts import ChatPromptTemplate
 
 
 class LLMJobAssistant:
-    def __init__(self, model_name="llama3-8b-8192", temperature=0.5, max_tokens=512):
+    def __init__(self, model_name="llama3-8b-8192", temperature=0.5, max_tokens=550):
         """
         Initializes the LLMJobAssistant with specified parameters.
 

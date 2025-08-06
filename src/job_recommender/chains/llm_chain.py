@@ -1,5 +1,6 @@
 from src.job_recommender.models.llm_model import LLMJobAssistant
 from langchain_core.runnables import RunnableLambda
+from jinja2 import Template
 
 
 class JobRecommenderChain(LLMJobAssistant):
@@ -45,7 +46,8 @@ class JobRecommenderChain(LLMJobAssistant):
         kwargs = {k: v for k, v in inputs.items() if k != "file_path"}
 
         prompt = self._load_file(file_path)
-        prompt = prompt.format(**kwargs)
+        prompt = Template(prompt).render(**kwargs)
+        # print(prompt)
         return {"prompt": prompt}
 
     

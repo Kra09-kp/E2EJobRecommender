@@ -1,3 +1,4 @@
-Based on the resume , give me the best job titles or keyword to search for finding the best suited job. I only want top-5 keywords.
+Based on the resume , give me the best job titles or keyword to search for finding the best suited job according to resume.
+I only want top-5 keywords.
 Here is the resume:
 {{ resume_text }}

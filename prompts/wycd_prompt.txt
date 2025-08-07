@@ -1,7 +1,12 @@
-Analyze the provided resume and identify actionable recommendations to enhance its effectiveness for securing more job opportunities. 
-Focus on areas such as skills, education and suggest specific improvements or additions that can be made to the resume.
+Analyze the provided resume and identify actionable recommendations to enhance its effectiveness for securing more job opportunities.
+
+Instructions:
+- Recommendations should be specific and based strictly on the resume content.
+- Do NOT rewrite the resume.
+- Structure your response in a readable bullet-point format.
+- Do NOT include a sample or revised resume.
+
 
 Here is the resume:
 {{ resume_text }}
 
-Note: Always Conclude with a positive and encouraging message, acknowledging the strengths and accomplishments demonstrated in the resume.

@@ -10,10 +10,12 @@ class JobRecommenderChain(LLMJobAssistant):
     job recommendations based on a given schema and prompt.
     """
 
-    def __init__(self,schema):
-        self.schema = schema
+    def __init__(self,schema=None):
+        """
+        Initializes the JobRecommenderChain with a schema.
+        """
         super().__init__()
-        self.chain = self._get_chain(self.schema) 
+        self.chain = None 
 
     def invoke(self,prompt):
         """
@@ -23,11 +25,13 @@ class JobRecommenderChain(LLMJobAssistant):
         Returns:
             The result of the chain invocation.
         """
+        if self.chain is None:
+            self.chain = self._get_chain()
         
         return self.chain.invoke(prompt)
 
     
-    def _get_chain(self,schema):
+    def _get_chain(self,schema=None,structured_output=True):
         """
         Returns the chain of the language model with a structured output.
         Args:
@@ -35,9 +39,10 @@ class JobRecommenderChain(LLMJobAssistant):
         """
         prompt = RunnableLambda(self._load_prompt)
         model = self._get_model()
-        structured_model = model.with_structured_output(schema)
+        if structured_output and schema is not None:    
+            model = model.with_structured_output(schema)
         template = self._get_template()
-        self.chain = prompt | template | structured_model
+        self.chain = prompt | template | model
         return self.chain
 
     def _load_prompt(self, inputs):

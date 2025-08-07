@@ -1,10 +1,15 @@
-Analyze following resume and highlight missing skills which are currently in demand in the job market.
+Carefully analyze the following resume and identify **missing skills** that are currently in demand for tech jobs (Machine Learning, AI, Data Science).
 
-- Do not include skills that are already present in the resume.
+Only include skills that are NOT already mentioned in the resume.
 
-Note: Skill can be the use of the latest technologies, tools, or methodologies that are relevant to the job market (Mainly if resume is for a tech job).
+For each missing skill, return the following:
+1. **Skill Name**: (One line)
+2. **Description**: A short description of the skill/tool/technology/methodology and its relevance in the current ML/AI job market.
+3. **Importance**: Why learning or having this skill would improve the candidate’s career prospects.
 
+Format the response clearly and presentably with bullets or sections for each skill.
 
-Here is the resume:
-
+Resume:
+"""
 {{ resume_text }}
+"""

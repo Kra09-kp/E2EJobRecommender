@@ -1,7 +1,7 @@
 from src.job_recommender.api import apify_client
 
 
-async def get_naukri_job_recommendations(search_query:str,location:str,rows=60):
+async def get_naukri_job_recommendations(search_query:list[str],location:str,rows=60):
     """
     Fetches job listings from Naukri based on a search query and location.
 

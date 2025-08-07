@@ -16,19 +16,27 @@ class Keywords(BaseModel):
     """
     keywords: List[str] = Field(..., description="List of most suited keywords for job recommendations based on skills and experience")
 
+class MissingSkill(BaseModel):
+    skill_name: str
+    description: str
+    importance: str
 
 class FindSkillGap(BaseModel):
-    """
-    Represents the skill gap analysis.
-    """
-    analysis: str = Field(..., description="Analysis of the candidate's missing skills and recommendations for improvement")
+    skills: List[MissingSkill]
+
+
+# class FindSkillGap(BaseModel):
+#     """
+#     Represents the skill gap analysis.
+#     """
+#     analysis: str = Field(..., description="Analysis of the candidate's missing skills and recommendations for improvement")
 
 class ProjectIdeas(BaseModel):
     """
     Represents project ideas based on the candidate's skills.
     """
     ideas: str = Field(..., description="Project ideas that can be added to the resume to enhance the candidate's profile")
-
+    
 class ImprovementAreas(BaseModel):
     """
     Represents areas of improvement for the candidate.

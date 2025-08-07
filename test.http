@@ -1,0 +1,15 @@
+POST http://localhost:8000/suggestions
+Content-Type: application/json
+
+{
+    "resume_text":"Hello this is kirti pogra"
+
+}
+
+POST http://localhost:8000/job-recommendation
+Content-Type: application/json
+
+{
+    "resume_text":"Hello this is kirti pogra, I am fresher, I have done MBA."
+
+}

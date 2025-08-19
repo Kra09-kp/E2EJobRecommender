@@ -7,3 +7,6 @@ python-dotenv
 apify-client
 mcp[cli]
 setuptools
+bleach
+pandas
+-e .

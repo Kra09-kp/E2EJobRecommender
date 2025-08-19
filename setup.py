@@ -8,7 +8,7 @@ AUTHOR_EMAIL="kirtipogra@gmail.com"
 REPO_NAME="E2EJobRecommender"
 __version__ = "0.1.0"
 
-with open("README.MD", "r", encoding="utf-8") as f:
+with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setuptools.setup(

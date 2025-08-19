@@ -1,5 +1,6 @@
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
+from jobRecommender import logger
 
 
 class LLMJobAssistant:
@@ -28,7 +29,10 @@ class LLMJobAssistant:
             ChatGroq: The configured language model.
         """
         if self.model_name is None:
+            logger.error("Model name must be specified.")
             raise ValueError("Model name must be specified.")
+        
+        logger.info(f"Model initialized with name: {self.model_name}, temperature: {self.temperature}, max_tokens: {self.max_tokens}")
         return ChatGroq(
             model=self.model_name,
             temperature=self.temperature,
@@ -45,6 +49,7 @@ class LLMJobAssistant:
         Returns:
             ChatPromptTemplate: The chat prompt template.
         """
+        logger.info("Chat prompt template created.")
         return ChatPromptTemplate([
             ('user', '{prompt}'),
         ])

@@ -2,7 +2,7 @@ from app.model.ask_llm import AskLLM
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
-from typing import Dict, Any
+from jobRecommender import logger
 
 router = APIRouter()
 ask_llm = AskLLM()
@@ -18,8 +18,10 @@ async def get_suggestions(request: ResumeRequest):
     """
     try:
         suggestions = ask_llm.get_suggestion(request)
-        print(suggestions)
+        # print(suggestions)
+        logger.info("Suggestion generated successfuly")
         return JSONResponse(content={"Suggestions":suggestions})
     except Exception as e:
+        logger.error("Error while generating suggestion",str(e))
         raise HTTPException(status_code=500, detail=str(e))
     

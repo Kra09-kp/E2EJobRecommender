@@ -1,4 +1,5 @@
-from src.job_recommender.models.llm_model import LLMJobAssistant
+from jobRecommender.models.llm_model import LLMJobAssistant
+from jobRecommender import logger
 from langchain_core.runnables import RunnableLambda
 from jinja2 import Template
 
@@ -10,11 +11,12 @@ class JobRecommenderChain(LLMJobAssistant):
     job recommendations based on a given schema and prompt.
     """
 
-    def __init__(self,schema=None):
+    def __init__(self):
         """
-        Initializes the JobRecommenderChain with a schema.
+        Initializes the JobRecommenderChain.
         """
         super().__init__()
+        
         self.chain = None 
 
     def invoke(self,prompt):
@@ -27,7 +29,7 @@ class JobRecommenderChain(LLMJobAssistant):
         """
         if self.chain is None:
             self.chain = self._get_chain()
-        
+        logger.info(f"Invoking chain with prompt: {prompt[:75]}...")  # Log the first 75 characters for brevity
         return self.chain.invoke(prompt)
 
     
@@ -43,6 +45,7 @@ class JobRecommenderChain(LLMJobAssistant):
             model = model.with_structured_output(schema)
         template = self._get_template()
         self.chain = prompt | template | model
+        logger.info("Chain created successfully.")
         return self.chain
 
     def _load_prompt(self, inputs):
@@ -53,6 +56,7 @@ class JobRecommenderChain(LLMJobAssistant):
         prompt = self._load_file(file_path)
         prompt = Template(prompt).render(**kwargs)
         # print(prompt)
+        logger.info(f"Prompt loaded and rendered: {prompt[:75]}...")  # Log the first 75 characters for brevity
         return {"prompt": prompt}
 
     

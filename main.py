@@ -1,4 +1,4 @@
-from src.job_recommender.mcp.mcp_server import mcp
+from src.jobRecommender.mcp.mcp_server import mcp
 
 
 def main():

@@ -1,8 +1,9 @@
 import os
 from langchain.schema.runnable import RunnableParallel
 from langchain_core.runnables import RunnableLambda
-from src.job_recommender.chains.llm_chain import JobRecommenderChain
-from src.job_recommender.schema.output_schema import *
+from src.jobRecommender.chains.llm_chain import JobRecommenderChain
+from src.jobRecommender.schema.output_schema import *
+from src.jobRecommender import logger
 
 
 class AskLLM(JobRecommenderChain):
@@ -23,6 +24,7 @@ class AskLLM(JobRecommenderChain):
         folder_path = "prompts/"
 
         self.final_chain()
+        logger.info("Running chain for suggestions.")
         return self.suggestions_chain.invoke({
             "folder_path": folder_path,
             "resume": resume_text
@@ -36,6 +38,7 @@ class AskLLM(JobRecommenderChain):
         folder_path = "prompts/"
         file_path = "keyword_prompt.txt"
         self.keywords_chain = self.llm_chain._get_chain(Keywords)
+        logger.info("Running chain for keywords.")
         return self.keywords_chain.invoke({
             "file_path": self.create_path(folder_path, file_path),
             "resume_text": resume_text
@@ -88,5 +91,6 @@ class AskLLM(JobRecommenderChain):
 
     def _safe_dict_access(self, x, key):
         if not isinstance(x, dict):
+            logger.error(f"Input to chain must be a dict, got {type(x)}")
             raise TypeError(f"Input to chain must be a dict, got {type(x)}")
         return x[key]

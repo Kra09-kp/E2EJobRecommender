@@ -1,5 +1,5 @@
 from apify_client import ApifyClientAsync
-from src.job_recommender.utils.helper import load_env_variables
+from src.jobRecommender.utils.helper import load_env_variables
 
 api_key = load_env_variables("APIFY")  # Load APIFY API key
 

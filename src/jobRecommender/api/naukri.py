@@ -1,7 +1,8 @@
-from src.job_recommender.api import apify_client
+from jobRecommender.api import apify_client
+from jobRecommender import logger
 
 
-async def get_naukri_job_recommendations(search_query:list[str],location:str,rows=60):
+async def get_naukri_job_recommendations(search_query:str,location:str,rows=70):
     """
     Fetches job listings from Naukri based on a search query and location.
 
@@ -13,6 +14,7 @@ async def get_naukri_job_recommendations(search_query:list[str],location:str,row
     Returns:
         list: A list of dictionaries containing job details.
     """
+    # print(search_query)
     run_input = {
         "keyword": search_query,
         "maxJobs": rows,
@@ -26,15 +28,15 @@ async def get_naukri_job_recommendations(search_query:list[str],location:str,row
         call_result = await actor_client.call(run_input=run_input)
 
         if not call_result or "defaultDatasetId" not in call_result:
-            print("❌ No dataset ID found in call result.")
+            logger.info("❌ No dataset ID found in call result.")
             return None
         
         dataset_id = call_result["defaultDatasetId"]
         dataset_client = apify_client.dataset(dataset_id)
         items = [item async for item in dataset_client.iterate_items()]
-        # print(f"✅ Retrieved {len(items)} items from dataset: {dataset_id}")
+        logger.info(f"✅ Retrieved {len(items)} items from dataset: {dataset_id}")
         return items
     
     except Exception as e:
-        print(f"🔥 Error fetching Naukri jobs: {e}") 
+        logger.error(f"🔥 Error fetching Naukri jobs: {e}")
         return e

@@ -73,9 +73,11 @@ async def linkedin_jobs(request: Request, keywords: str = "", location: str = ""
         else:
             keywords_list.append(keywords.strip())
         print(keywords_list)
+
         # jobs = await get_linkedin_job_recommendations(
         #     keywords_list, location
         # )
+
         # jobs = {
         #     "jobs": [
         #         {
@@ -94,7 +96,7 @@ async def linkedin_jobs(request: Request, keywords: str = "", location: str = ""
         #         }
         #     ]
         #     }
-        logger.info("Jobs from LinkedIn fetched successfully!")
+        
 
         # with open("linkedin.json", "w") as f:
         #     f.write(str(jobs))
@@ -102,16 +104,19 @@ async def linkedin_jobs(request: Request, keywords: str = "", location: str = ""
             with open("artifacts/linkedin.json","r") as f:
                 jobs = f.read()
 
-            jobs = make_data_clean(jobs)
+            jobs = make_data_clean(jobs,"linkedin")
         
         except Exception as e:
             logger.error(f"Error while cleaning job: {str(e)}")
             raise HTTPException(status_code=500, detail=str(e))
 
+        logger.info("Jobs from LinkedIn fetched successfully!")
         # request object pass karna mandatory hai
         return templates.TemplateResponse(
-            "linkedin.html",
-            {"request": request, "jobs": jobs}
+            "jobs.html",
+            {"request": request,
+              "jobs": jobs,
+              "platform": "linkedin"}
         )
     except Exception as e:
         logger.error(f"Error while searching job from the linkedin: {str(e)}")
@@ -129,16 +134,28 @@ async def naukri_jobs(request: Request, keywords: str = "", location: str = ""):
         # else:
         #     keywords_list.append(keywords.strip())
         # print(keywords_list)
-        jobs = await get_naukri_job_recommendations(keywords, location)
+
+        # jobs = await get_naukri_job_recommendations(keywords, location)
+
         # print(jobs)
         # return JSONResponse(content=jobs)
-        with open("naukri.json", "w") as f:
-            f.write(str(jobs))
+        # with open("naukri.json", "w") as f:
+        #     f.write(str(jobs))
+
+        try:
+            with open("artifacts/naukri.json","r") as f:
+                jobs = f.read()
+
+            jobs = make_data_clean(jobs,"naukri")
+        
+        except Exception as e:
+            logger.error(f"Error while cleaning job: {str(e)}")
+            raise HTTPException(status_code=500, detail=str(e))
 
         logger.info("Jobs from naukri fetched successfully!")
         return templates.TemplateResponse(
             "jobs.html", 
-            {"request": request,"jobs": jobs}
+            {"request": request,"jobs": jobs, "platform": "naukri"}
         )
 
     except Exception as e:

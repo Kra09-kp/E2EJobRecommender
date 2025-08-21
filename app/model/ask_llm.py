@@ -16,11 +16,11 @@ class AskLLM(JobRecommenderChain):
         self.setup_chains()
 
 
-    def get_suggestion(self,input_data):
+    def get_suggestion(self,resume_text):
         """
         Get suggestions based on the resume text.
         """
-        resume_text = input_data.resume_text
+        # resume_text = input_data.resume_text
         folder_path = "prompts/"
 
         self.final_chain()

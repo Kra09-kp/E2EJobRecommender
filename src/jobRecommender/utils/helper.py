@@ -50,7 +50,7 @@ def load_env_variables(key_name: str):
 
 
 
-def make_data_clean(data: str):
+def make_data_clean(data: str,platform: str):
     """
     Wrapper: detect JSON vs Python literal string,
     convert to DataFrame → clean dict list.
@@ -65,13 +65,17 @@ def make_data_clean(data: str):
         logger.info("Parsed using ast.literal_eval")
 
     df = pd.DataFrame(data_list)
-
     # Keep only useful columns (if exist)
-    keep_cols = ['link', 'title', 'companyLogo', 'location', 'postedAt',
-                 'descriptionHtml', 'applicantsCount']
+    if platform=="naukri":
+        df.rename(columns={"jdURL": "link", "jobDescription": "descriptionHtml","createdDate":"postedAt"}, inplace=True)
+    
+    keep_cols =['link', 'title', 'companyName', 'location', 'postedAt','descriptionHtml']
+    df['descriptionHtml'] = df['descriptionHtml'].apply(sanitize_html)
     df = df[[col for col in keep_cols if col in df.columns]]
 
+    # Convert to dict
     return df.to_dict(orient="records")
+
 
 
 
@@ -88,3 +92,5 @@ def sanitize_html(html_text: str) -> str:
     }
     
     return bleach.clean(html_text, tags=allowed_tags, attributes=allowed_attrs, strip=True)
+
+

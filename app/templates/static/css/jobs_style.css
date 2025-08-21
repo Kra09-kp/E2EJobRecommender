@@ -1,69 +1,15 @@
-/* Dark Blue Theme */
 
-/* Body background & text */
-body {
-    background-color: #0b2f68 !important;    /* Dark Blue */
-    color: white;
-    font-family: Arial, sans-serif;
 
- 
+.job-card .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
 }
 
-/* Container heading */
-h2 {
-    color: #e0e1dd;
+
+
+.job-card .card:hover {
+    transform: translateY(-5px);
+    border-color: #0d6efd; /* bootstrap primary blue */
+    box-shadow: 0 4px 12px rgba(13,110,253,0.2);
 }
 
-/* Card styles */
-.card {
-    background-color: #10316e; /* dark card */
-    border: 1px solid #415a77;
-    color: #e0e1dd;
-}
-
-.card .card-title {
-    color: #ffffff;
-}
-
-.card .card-subtitle {
-    color: #a9bcd0;
-}
-
-.card .card-body {
-    background-color: #18366d;
-}
-
-/* Buttons */
-.btn-primary {
-    background-color: #1d4ed8;   /* dark blue */
-    border-color: #1d4ed8;
-}
-
-.btn-primary:hover {
-    background-color: #2563eb;
-    border-color: #2563eb;
-}
-
-.btn-outline-primary {
-    color: #60a5fa;
-    border-color: #60a5fa;
-}
-
-.btn-outline-primary:hover {
-    background-color: #60a5fa;
-    color: #0d1b2a;
-}
-
-/* Collapse description card */
-.card .card-body .card {
-    background-color: #112653;
-    border: 1px solid #415a77;
-    color: #e0e1dd;
-}
-
-/* Alerts */
-.alert-info {
-    background-color: #1d4ed8;
-    color: #fff;
-    border: none;
-}

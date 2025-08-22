@@ -1,7 +1,7 @@
 import json
 import hashlib
-from cache import redis_con
 from jobRecommender import logger
+
 
 class JobCache:
     """
@@ -9,8 +9,10 @@ class JobCache:
     TTL: 6 hours
     """
 
-    def __init__(self):
-        self.TTL = 6 * 60 * 60
+    def __init__(self,session_manager):
+
+        self.TTL = 1 * 60 * 60
+        self.session_manager = session_manager
 
     @staticmethod
     def _hash(url: str):
@@ -19,17 +21,17 @@ class JobCache:
             url (str): The URL to hash."""
         return hashlib.md5(url.encode()).hexdigest()
 
-    async def save(self, url: str, response: dict):
+    async def save(self, session_id: str, url: str, response: dict):
         """Save the job response to Redis with TTL.
         Args:
             url (str): The URL of the job.
             response (dict): The job response data to cache.
         """
         key = f"jobs:{self._hash(url)}"
-        await redis_con.set(key, json.dumps(response), ex=self.TTL)
-        logger.info(f"Job response cached for URL: {url}")
+        await self.session_manager.set(session_id, key, json.dumps(response))
+        logger.info(f"Job response cached for session:{session_id} &  URL: {url}")
 
-    async def get(self, url: str):
+    async def get(self, session_id: str, url: str):
         """Retrieve the job response from Redis, or None if not found.
         Args:
             url (str): The URL of the job.
@@ -37,9 +39,9 @@ class JobCache:
             dict or None: The cached job response data, or None if not found.
         """
         key = f"jobs:{self._hash(url)}"
-        data = await redis_con.get(key)
+        data = await self.session_manager.get(session_id,key)
         if not data:
-            logger.info(f"No cached job response found for URL: {url}")
+            logger.info(f"No cached job response found for session:{session_id} & URL: {url}")
             return None
-        logger.info(f"Cached job response retrieved for URL: {url}")
+        logger.info(f"Cached job response retrieved for session:{session_id} & URL: {url}")
         return json.loads(data) 

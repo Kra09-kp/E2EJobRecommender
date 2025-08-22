@@ -1,10 +1,13 @@
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from jobRecommender import logger
+from jobRecommender.utils.helper import load_env_variables
+
+load_env_variables("GROQ")
 
 
 class LLMJobAssistant:
-    def __init__(self, model_name="llama3-8b-8192", temperature=0.5, max_tokens=550):
+    def __init__(self, model_name="llama3-8b-8192", temperature=0.7, max_tokens=550):
         """
         Initializes the LLMJobAssistant with specified parameters.
 

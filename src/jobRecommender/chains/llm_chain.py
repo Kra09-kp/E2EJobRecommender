@@ -45,7 +45,6 @@ class JobRecommenderChain(LLMJobAssistant):
             model = model.with_structured_output(schema)
         template = self._get_template()
         self.chain = prompt | template | model
-        logger.info("Chain created successfully.")
         return self.chain
 
     def _load_prompt(self, inputs):

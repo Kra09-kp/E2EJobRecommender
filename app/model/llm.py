@@ -2,7 +2,7 @@ import os
 from langchain.schema.runnable import RunnableParallel
 from langchain_core.runnables import RunnableLambda
 from src.jobRecommender.chains.llm_chain import JobRecommenderChain
-from src.jobRecommender.schema.output_schema import *
+from src.jobRecommender.schema.output_schema import Keywords
 from src.jobRecommender import logger
 
 
@@ -14,6 +14,7 @@ class AskLLM(JobRecommenderChain):
         """
         self.llm_chain = JobRecommenderChain()
         self.setup_chains()
+        self.final_chain()
 
 
     def get_suggestion(self,resume_text):
@@ -21,9 +22,8 @@ class AskLLM(JobRecommenderChain):
         Get suggestions based on the resume text.
         """
         # resume_text = input_data.resume_text
-        folder_path = "prompts/"
+        folder_path = "./src/jobRecommender/prompts"
 
-        self.final_chain()
         logger.info("Running chain for suggestions.")
         return self.suggestions_chain.invoke({
             "folder_path": folder_path,
@@ -35,9 +35,9 @@ class AskLLM(JobRecommenderChain):
         Get keywords from the resume text.
         """
         resume_text = input_data.resume_text
-        folder_path = "prompts/"
+        folder_path = "./src/jobRecommender/prompts"
         file_path = "keyword_prompt.txt"
-        self.keywords_chain = self.llm_chain._get_chain(Keywords)
+        # self.keywords_chain = self.llm_chain._get_chain(Keywords)
         logger.info("Running chain for keywords.")
         return self.keywords_chain.invoke({
             "file_path": self.create_path(folder_path, file_path),
@@ -74,14 +74,18 @@ class AskLLM(JobRecommenderChain):
             "project_ideas": projects_idea_chain,
             "improvement_areas": improvements_areas_chain
         })
-
+        logger.info("Final chain for suggestions created sucessfully!")
         
 
     def setup_chains(self):
         self.find_skill_gap_chain = self.llm_chain._get_chain()
+        logger.info("Chain for finding Skill Gap created sucessfully!")
         self.project_idea_chain = self.llm_chain._get_chain()
+        logger.info("Chain for finding Project Ideas created sucessfully!")
         self.improvement_areas_chain = self.llm_chain._get_chain()  
-        self.keywords_chain = self.llm_chain._get_chain()
+        logger.info("Chain for finding Improvement Areas created sucessfully!")
+        self.keywords_chain = self.llm_chain._get_chain(Keywords)
+        logger.info("Chain for finding keywords created sucessfully!")
        
     def create_path(self, folder_path, file_name):
         """   

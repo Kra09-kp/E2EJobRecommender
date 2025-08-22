@@ -2,6 +2,7 @@
 let extractedKeywords = [];
 const SESSION_KEY = "resumeSession";
 let sessionId = null;
+let loadingInterval;
 
 document.addEventListener("DOMContentLoaded", () => {
   const SESSION_KEY = "resumeSession";
@@ -19,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
 async function uploadResume() {
     const fileInput = document.getElementById("resumeFile");
     const resultDiv = document.getElementById("result");
@@ -33,6 +33,13 @@ async function uploadResume() {
 
     let formData = new FormData();
     formData.append("file", fileInput.files[0]);
+    
+    showLoading([
+      "📄 Analysing your resume...",
+      "🧠 Generating smart keywords...",
+      "✅ Almost done, hang tight...",
+      "🙌 Thank you for waiting..."
+    ]);
 
   try {
       if (!sessionId) {
@@ -51,7 +58,8 @@ async function uploadResume() {
 
       console.log("New session created:", sessionId);
     }
-        
+    
+    // await new Promise(resolve => setTimeout(resolve, 10000));
     let response = await fetch("/keywords", {
       method: "POST",
       headers: {
@@ -87,6 +95,8 @@ async function uploadResume() {
 
   } catch (error) {
     resultDiv.innerHTML = `<span style="color: red;">Error: ${error.message}</span>`;
+  } finally {
+    hideLoading(); // modal band karo
   }
 }
 
@@ -104,26 +114,75 @@ function renderButtons() {
       </button>`;
 }
 
-function resetResume() {
-  localStorage.removeItem("resumeData");
-  window.location.reload();
+function showLoading(messages) {
+  const modalElement = document.getElementById('loadingModal');
+  const loadingMsg = document.getElementById('loadingMsg');
+  const modal = new bootstrap.Modal(modalElement);
+  
+  let index = 0;
+  loadingMsg.innerText = messages[index];
+  modal.show();
+
+
+
+  // Rotate messages every 30 sec
+  loadingInterval = setInterval(() => {
+    index = (index + 1) % messages.length;
+    loadingMsg.innerText = messages[index];
+  }, 5000);
+
+  window._loadingModal = modal;
+}
+
+function hideLoading() {
+  clearInterval(loadingInterval);
+  if (window._loadingModal) {
+    window._loadingModal.hide();
+    window._loadingModal = null;
+  }
 }
 
 async function getLinkedInJobs(){
+     
     const location = document.getElementById("locationInput").value.trim();
     if (!location) {
         alert("Please enter a location");
         return;
     }
+    
+    showLoading([
+    "⚙️ Preparing things...",
+    "🔑 Getting keywords & location...",
+    "💼 Fetching jobs from LinkedIn...",
+    "📊 Organizing results...",
+    "⏳ Almost there...",
+    "🙌 Thank you for waiting..."
+  ]);
 
+  try{
     // keywords + location ko query params me bhej ke redirect
     const params = new URLSearchParams({
         keywords: extractedKeywords,
         location: location
     });
 
-   window.location.href = "/job-recommendation/linkedin?" + params.toString() + "&fromHome=true";
+    // add wait in the function for now (1 min)
+    // await new Promise(resolve => setTimeout(resolve, 30000));
 
+
+
+    // backend pe request bhejo jo jobs la raha hai
+    const res = await fetch(`/job-recommendation/linkedin?${params.toString()}&fromHome=true`);
+    if (!res.ok) throw new Error("Failed to fetch jobs");
+
+    // Agar response mil gaya toh redirect kar do ya data handle karo
+    window.location.href = `/job-recommendation/linkedin?${params.toString()}&fromHome=true`;
+
+  } catch (err) {
+    alert("Error: " + err.message);
+    } finally {
+    hideLoading(); // agar error hua toh modal band ho jaye
+  }
 }
 
 async function getNaukriJobs() {
@@ -138,9 +197,35 @@ async function getNaukriJobs() {
         keywords: extractedKeywords,
         location: location
     });
+    
+    showLoading([
+    "⚙️ Preparing things...",
+    "🔑 Getting keywords & location...",
+    "💼 Fetching jobs from Naukri...",
+    "📊 Organizing results...",
+    "⏳ Almost there...",
+    "🙌 Thank you for waiting...."
+  ]);
 
-   window.location.href = "/job-recommendation/naukri?" + params.toString() + "&fromHome=true";
+  
+  // backend pe request bhejo jo jobs la raha hai
+  try {
+      
+      // add wait in the function for now (1 min)
+      // await new Promise(resolve => setTimeout(resolve, 30000));
 
+
+      const res = await fetch(`/job-recommendation/naukri?${params.toString()}&fromHome=true`);
+      if (!res.ok) throw new Error("Failed to fetch jobs");
+
+      // Agar response mil gaya toh redirect kar do ya data handle karo
+      window.location.href = `/job-recommendation/naukri?${params.toString()}&fromHome=true`;
+
+    }catch (err) {
+      alert("Error: " + err.message);
+    } finally {
+      hideLoading(); // agar error hua toh modal band ho jaye
+    }
 }
 
 async function getSuggestions() {
@@ -153,7 +238,19 @@ async function getSuggestions() {
 
     const formData = new FormData();
     formData.append("resume_file", resumeInput.files[0]);
+    
+    showLoading([
+    "📄 Analyzing your resume...",
+    "🔍 Spotting skill gaps...",
+    "💡 Generating project ideas...",
+    "🚀 Highlighting improvement areas...",
+    "🙌 Thank you for waiting...."
+  ]);
 
+
+    // add wait in the function for now (1 min)
+    // await new Promise(resolve => setTimeout(resolve, 30000));
+    
     const response = await fetch("/suggestions", {
         method: "POST",
         body: formData
@@ -169,11 +266,4 @@ async function getSuggestions() {
     }
 }
 
-
-
-
-function resetResume() {
-  localStorage.removeItem("resumeData");
-  window.location.reload();
-}
 

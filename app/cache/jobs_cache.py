@@ -21,7 +21,7 @@ class JobCache:
             url (str): The URL to hash."""
         return hashlib.md5(url.encode()).hexdigest()
 
-    async def save(self, session_id: str, url: str, response: dict):
+    async def save(self, session_id: str, url: str, response: list[dict]):
         """Save the job response to Redis with TTL.
         Args:
             url (str): The URL of the job.

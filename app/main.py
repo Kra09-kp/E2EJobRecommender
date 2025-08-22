@@ -2,11 +2,11 @@ from app.routers import job_recommendation
 from app.routers import suggestions 
 from app import cache
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from services.redis_config import RedisConfig
-from services.session_manager import SessionManager
+from app.services.redis_config import RedisConfig
+from app.services.session_manager import SessionManager
 from contextlib import asynccontextmanager
 from jobRecommender import logger
 
@@ -55,3 +55,7 @@ app.include_router(suggestions.router)
 async def root(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
 
+@app.post("/create-session")  # keep URL same as frontend
+async def generate_session_id():
+    new_id = session_manager.create_session_id()
+    return JSONResponse(content={"sessionId": new_id})  # camelCase to match JS

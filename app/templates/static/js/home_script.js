@@ -1,30 +1,30 @@
  // Store keywords for second API call
 let extractedKeywords = [];
+const SESSION_KEY = "resumeSession";
+let sessionId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-  const savedData = localStorage.getItem("resumeData");
+  const SESSION_KEY = "resumeSession";
+  
+  let sessionData = localStorage.getItem(SESSION_KEY);
 
-  if (savedData) {
-    const data = JSON.parse(savedData);
-    extractedKeywords = data.keywords || [];
-
-    if (extractedKeywords) {
-    //   extractedKeywords = data.keywords;
-      document.getElementById("result").innerHTML = `<strong>Recommended Keywords:</strong> ${extractedKeywords.join(", ")}`;
-      renderButtons();
+  if (sessionData) {
+    const parsed = JSON.parse(sessionData);
+    if (Date.now() < parsed.expiry) {
+      sessionId = parsed.sessionId;
+      console.log("Valid session found:", sessionId);
+    } else {
+      localStorage.removeItem(SESSION_KEY);
     }
-      
-    // if (data.keywords) {
-    //   extractedKeywords = data.keywords;
-    //   document.getElementById("result").innerHTML = `<strong>Recommended Keywords:</strong> ${data.keywords.join(", ")}`;
-    //   renderButtons();
-    // }
   }
 });
+
 
 async function uploadResume() {
     const fileInput = document.getElementById("resumeFile");
     const resultDiv = document.getElementById("result");
+    const EXPIRY_MS = 6 * 60 * 60 * 1000; // 6 hours
+
 
     if (fileInput.files.length === 0) {
         alert("Please select a PDF file first");
@@ -34,46 +34,56 @@ async function uploadResume() {
     let formData = new FormData();
     formData.append("file", fileInput.files[0]);
 
-    try {
-      let extractedKeywords = [
-        "Software Engineer",
-        "Data Scientist",
-        "Machine Learning Engineer",
-        "Full Stack Developer",
-        "DevOps Engineer"
-    ];
-    // let response = await fetch("/keywords", {
-    //   method: "POST",
-    //   body: formData
-    // });
+  try {
+      if (!sessionId) {
+      // Hit your backend endpoint to get a new session id
+      const res = await fetch("/create-session", {
+        method: "POST"
+      });
+      const data = await res.json();
+      sessionId = data.sessionId;
 
-    // if (!response.ok) {
-    //   resultDiv.innerHTML = `<span style="color: red;">Error: ${response.statusText}</span>`;
-    //   return;
-    // }
+      // Save it with expiry
+      localStorage.setItem(
+        SESSION_KEY,
+        JSON.stringify({ sessionId, expiry: Date.now() + EXPIRY_MS })
+      );
 
-    // const data = await response.json();
+      console.log("New session created:", sessionId);
+    }
+        
+    let response = await fetch("/keywords", {
+      method: "POST",
+      headers: {
+        "X-Session-Id": sessionId
+      },
+      body: formData
+    });
 
-    localStorage.setItem("resumeData", JSON.stringify({
-      keywords: extractedKeywords,
-      fileName: fileInput.files[0].name
-    }));
+    if (!response.ok) {
+      resultDiv.innerHTML = `<span style="color: red;">Error: ${response.statusText}</span>`;
+      return;
+    }
 
+    const data = await response.json();
+    // Update localStorage with file info
+    localStorage.setItem(
+      SESSION_KEY,
+      JSON.stringify({
+        sessionId,
+        fileName: fileInput.files[0].name,
+        expiry: Date.now() + EXPIRY_MS
+      })
+    );
     
-    if (extractedKeywords) {
-    //   extractedKeywords = data.keywords;
-      resultDiv.innerHTML = `<strong>Recommended Keywords:</strong> ${extractedKeywords.join(", ")}`;
+    if (data.keywords) {
+      extractedKeywords = data.keywords
+      resultDiv.innerHTML = `<strong>Recommended Keywords:</strong> ${data.keywords.join(", ")}`;
       renderButtons();
     } else {
       resultDiv.innerHTML = `<span style="color: yellow;">No keywords found in response.</span>`;
     }
-    // if (data.keywords) {
-    //   extractedKeywords = data.keywords;
-    //   resultDiv.innerHTML = `<strong>Recommended Keywords:</strong> ${data.keywords.join(", ")}`;
-    //   renderButtons();
-    // } else {
-    //   resultDiv.innerHTML = `<span style="color: yellow;">No keywords found in response.</span>`;
-    // }
+    
 
   } catch (error) {
     resultDiv.innerHTML = `<span style="color: red;">Error: ${error.message}</span>`;

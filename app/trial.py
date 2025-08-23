@@ -5,6 +5,7 @@ from cache.resume_cache import ResumeCache
 from services.session_manager import SessionManager
 from services.redis_config import RedisConfig
 
+
 session_manager = None
 session_id = ''
 

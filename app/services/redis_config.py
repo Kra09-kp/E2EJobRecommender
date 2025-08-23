@@ -18,7 +18,8 @@ class RedisConfig:
     async def init(self):
         """Initialize Redis client"""
         if self.redis_url:
-            self.client = redis_asyncio.from_url(self.redis_url)
+            self.client = redis_asyncio.from_url(self.redis_url,
+            decode_responses=True)
             return self.client
         self.client = redis_asyncio.from_url(
             f"redis://{self.host}:{self.port}/{self.db}",

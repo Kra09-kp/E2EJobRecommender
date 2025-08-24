@@ -118,10 +118,10 @@ async def linkedin_jobs(request: Request, keywords: str = "", location: str = ""
         try:
             
             start_time = time.time()
-            # jobs = await get_linkedin_job_recommendations(keywords_list, location) #type: ignore
+            jobs = await get_linkedin_job_recommendations(keywords_list, location) #type: ignore
             print("Time taken to fetch jobs (in min)", (time.time() - start_time) / 60)
-            with open("artifacts/linkedin(update).json","r") as f:
-                jobs = f.read()
+            # with open("artifacts/linkedin(update).json","r") as f:
+            #     jobs = f.read()
             
             print(type(jobs))
             jobs = make_data_clean(str(jobs),"linkedin") #type: ignore

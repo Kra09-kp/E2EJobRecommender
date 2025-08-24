@@ -27,8 +27,9 @@ async function uploadResume() {
 
 
     if (fileInput.files.length === 0) {
-        alert("Please select a PDF file first");
-        return;
+      showLoading(["Please select a PDF file first"]);
+      setTimeout(hideLoading, 2000);
+      return;
     }
 
     let formData = new FormData();
@@ -113,32 +114,43 @@ function renderButtons() {
           Get Suggestions
       </button>`;
 }
-
 function showLoading(messages) {
   const modalElement = document.getElementById('loadingModal');
   const loadingMsg = document.getElementById('loadingMsg');
-  const modal = new bootstrap.Modal(modalElement);
+  
+  // Stop previous interval
+  if (loadingInterval) clearInterval(loadingInterval);
   
   let index = 0;
   loadingMsg.innerText = messages[index];
-  modal.show();
 
+  // Show modal
+  if (!window._loadingModal) {
+    window._loadingModal = new bootstrap.Modal(modalElement, {backdrop: 'static', keyboard: false});
+  }
+  window._loadingModal.show();
 
-
-  // Rotate messages every 30 sec
-  loadingInterval = setInterval(() => {
-    index = (index + 1) % messages.length;
-    loadingMsg.innerText = messages[index];
-  }, 5000);
-
-  window._loadingModal = modal;
+  // Only rotate if multiple messages
+  if (messages.length > 1) {
+    loadingInterval = setInterval(() => {
+      index = (index + 1) % messages.length;
+      loadingMsg.innerText = messages[index];
+    }, 5000);
+  } else {
+    loadingInterval = null; // single message, no rotation
+  }
 }
 
 function hideLoading() {
-  clearInterval(loadingInterval);
+  // Stop interval
+  if (loadingInterval) {
+    clearInterval(loadingInterval);
+    loadingInterval = null;
+  }
+
+  // Hide modal
   if (window._loadingModal) {
     window._loadingModal.hide();
-    window._loadingModal = null;
   }
 }
 
@@ -146,20 +158,21 @@ async function getLinkedInJobs(){
      
     const location = document.getElementById("locationInput").value.trim();
     if (!location) {
-        alert("Please enter a location");
+        showLoading(["Please enter a location"]);
+        setTimeout(hideLoading, 2000);
         return;
     }
     
-    showLoading([
-    "⚙️ Preparing things...",
-    "🔑 Getting keywords & location...",
-    "💼 Fetching jobs from LinkedIn...",
-    "📊 Organizing results...",
-    "⏳ Almost there...",
-    "🙌 Thank you for waiting..."
-  ]);
 
   try{
+    showLoading([
+      "⚙️ Preparing things...",
+      "🔑 Getting keywords & location...",
+      "💼 Fetching jobs from LinkedIn...",
+      "📊 Organizing results...",
+      "⏳ Almost there...",
+      "🙌 Thank you for waiting..."
+    ]);
     // keywords + location ko query params me bhej ke redirect
     const params = new URLSearchParams({
         keywords: extractedKeywords,
@@ -169,8 +182,6 @@ async function getLinkedInJobs(){
     // add wait in the function for now (1 min)
     // await new Promise(resolve => setTimeout(resolve, 30000));
 
-
-
     // backend pe request bhejo jo jobs la raha hai
     const res = await fetch(`/job-recommendation/linkedin?${params.toString()}&fromHome=true`);
     if (!res.ok) throw new Error("Failed to fetch jobs");
@@ -179,8 +190,11 @@ async function getLinkedInJobs(){
     window.location.href = `/job-recommendation/linkedin?${params.toString()}&fromHome=true`;
 
   } catch (err) {
-    alert("Error: " + err.message);
-    } finally {
+    hideLoading();
+    showLoading(["❌ Error: " + err.message]);
+    setTimeout(hideLoading, 3000);
+
+  } finally {
     hideLoading(); // agar error hua toh modal band ho jaye
   }
 }
@@ -188,7 +202,8 @@ async function getLinkedInJobs(){
 async function getNaukriJobs() {
     const location = document.getElementById("locationInput").value.trim();
     if (!location) {
-        alert("Please enter a location");
+        showLoading(["Please enter a location"]);
+        setTimeout(hideLoading, 2000);
         return;
     }
 
@@ -198,18 +213,19 @@ async function getNaukriJobs() {
         location: location
     });
     
-    showLoading([
-    "⚙️ Preparing things...",
-    "🔑 Getting keywords & location...",
-    "💼 Fetching jobs from Naukri...",
-    "📊 Organizing results...",
-    "⏳ Almost there...",
-    "🙌 Thank you for waiting...."
-  ]);
-
+    
   
   // backend pe request bhejo jo jobs la raha hai
   try {
+        showLoading([
+        "⚙️ Preparing things...",
+        "🔑 Getting keywords & location...",
+        "💼 Fetching jobs from Naukri...",
+        "📊 Organizing results...",
+        "⏳ Almost there...",
+        "🙌 Thank you for waiting...."
+      ]);
+
       
       // add wait in the function for now (1 min)
       // await new Promise(resolve => setTimeout(resolve, 30000));
@@ -221,8 +237,11 @@ async function getNaukriJobs() {
       // Agar response mil gaya toh redirect kar do ya data handle karo
       window.location.href = `/job-recommendation/naukri?${params.toString()}&fromHome=true`;
 
-    }catch (err) {
-      alert("Error: " + err.message);
+  } catch (err) {
+    hideLoading();
+    showLoading([" ❌ Error: " + err.message]);
+    setTimeout(hideLoading, 3000);
+    // return
     } finally {
       hideLoading(); // agar error hua toh modal band ho jaye
     }
@@ -232,8 +251,9 @@ async function getSuggestions() {
     const resumeInput = document.getElementById("resumeFile");
 
     if (!resumeInput.files.length) {
-        alert("Please upload a resume file");
-        return;
+      showLoading(["Please upload a resume file"]);
+      setTimeout(hideLoading, 2000);
+      return;
     }
 
     const formData = new FormData();
@@ -262,7 +282,9 @@ async function getSuggestions() {
         document.write(html);
         document.close();
     } else {
-        console.error("Error:", response.statusText);
+      console.error("Error:", response.statusText);
+      showLoading(["❌ Something went wrong"]);
+      setTimeout(hideLoading, 3000);
     }
 }
 

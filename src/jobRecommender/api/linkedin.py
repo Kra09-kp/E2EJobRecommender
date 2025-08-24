@@ -1,7 +1,7 @@
 from jobRecommender.api import apify_client
 from jobRecommender import logger
 
-async def get_linkedin_job_recommendations(search_query: list[str], location: str, rows: int = 100):
+async def get_linkedin_job_recommendations(search_query: list[str], location: str, rows: int = 101):
     url = f"https://www.linkedin.com/jobs/search?keywords={search_query[:3]}&location={location}"
     
     run_input = {

@@ -66,15 +66,7 @@ async def job_recommendation(request:Request,file: UploadFile = File(...)):
         keywords = ask_llm.get_keywords(request_obj)
         print(keywords)
 
-        # keywords = ["Software Engineer",
-        # "Data Scientist",
-        # "Machine Learning Engineer",
-        # "Full Stack Developer",
-        # "DevOps Engineer"]
-
-        # keywords = Keywords(keywords=keywords) #type:ignore
-        # print(type(keywords))
-
+       
         logger.info("Keywords are generated successfully")
         
 
@@ -126,10 +118,10 @@ async def linkedin_jobs(request: Request, keywords: str = "", location: str = ""
         try:
             
             start_time = time.time()
-            jobs = await get_linkedin_job_recommendations(keywords_list, location) #type: ignore
+            # jobs = await get_linkedin_job_recommendations(keywords_list, location) #type: ignore
             print("Time taken to fetch jobs (in min)", (time.time() - start_time) / 60)
-            # with open("artifacts/linkedin.json","r") as f:
-            #     jobs = f.read()
+            with open("artifacts/linkedin(update).json","r") as f:
+                jobs = f.read()
             
             print(type(jobs))
             jobs = make_data_clean(str(jobs),"linkedin") #type: ignore
